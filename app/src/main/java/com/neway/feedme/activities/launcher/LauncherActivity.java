@@ -1,4 +1,4 @@
-package com.neway.feedme;
+package com.neway.feedme.activities.launcher;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -6,7 +6,12 @@ import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.neway.feedme.activities.home.HomeActivity;
+import com.neway.feedme.model.Navegator;
+import com.neway.feedme.R;
 import com.neway.feedme.bases.BaseActivity;
+import com.neway.feedme.model.App;
+import com.neway.feedme.model.User;
 import com.neway.feedme.widget.FButton;
 import com.rengwuxian.materialedittext.MaterialEditText;
 
@@ -91,10 +96,14 @@ public class LauncherActivity extends BaseActivity implements LauncherContract.V
     }
 
     @Override
-    public void onSignInCallback(boolean successful, String error) {
-        if (successful) Toast.makeText(this, "Login Success", Toast.LENGTH_SHORT).show();
-        else {
-            Toast.makeText(this, "Login Error " + error, Toast.LENGTH_SHORT).show();
+    public void onSignInCallback(boolean successful, User user) {
+        if (successful) {
+            App.setCurrentUser(user);
+            Navegator.navigateToActivity(this, HomeActivity.class);
+            Toast.makeText(this, "Login Success", Toast.LENGTH_SHORT).show();
+            finish();
+        } else {
+            Toast.makeText(this, "Login Error ", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -103,7 +112,7 @@ public class LauncherActivity extends BaseActivity implements LauncherContract.V
         if (successful) {
             mPresenter.backToLauncher();
             Toast.makeText(this, "SignUp Success", Toast.LENGTH_SHORT).show();
-        }else {
+        } else {
             Toast.makeText(this, "SignUp Error " + error, Toast.LENGTH_SHORT).show();
         }
     }

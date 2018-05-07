@@ -1,7 +1,8 @@
-package com.neway.feedme;
+package com.neway.feedme.activities.launcher;
 
 import com.neway.feedme.bases.BaseMvpPresenter;
 import com.neway.feedme.bases.BaseView;
+import com.neway.feedme.model.User;
 
 /**
  * Created by Hazem Ali
@@ -24,7 +25,7 @@ public class LauncherContract {
 
     // Action callbacks. Activity/Fragment will implement
     interface View extends BaseView {
-        void onSignInCallback(boolean successful, String error);
+        void onSignInCallback(boolean successful, User user);
 
         void onSignUpCallback(boolean successful, String error);
 

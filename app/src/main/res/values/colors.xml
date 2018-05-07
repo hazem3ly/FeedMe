@@ -7,4 +7,7 @@
 
     <color name="login_btn_color">#69F0AE</color>
     <color name="sign_up_btn_color">#EEFF41</color>
+    
+    <color name="overlayBackground">#7f333639</color>
+    <color name="overlayActionBar">#0e0d0e</color>
 </resources>

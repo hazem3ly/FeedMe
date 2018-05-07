@@ -1,4 +1,4 @@
-package com.neway.feedme;
+package com.neway.feedme.activities.launcher;
 
 import android.support.annotation.NonNull;
 
@@ -94,15 +94,15 @@ public class LauncherPresenter extends BasePresenter<LauncherContract.View> impl
                 if (dataSnapshot.child(phone).exists()) {
                     User user = dataSnapshot.child(phone).getValue(User.class);
                     if (user != null && user.getPassword().equals(password)) {
-                        getView().onSignInCallback(true, "");
+                        getView().onSignInCallback(true, user);
                         getView().hideLoading();
                     } else {
                         getView().hideLoading();
-                        getView().onSignInCallback(false, "Password Error");
+                        getView().onSignInCallback(false, null);
                     }
                 } else {
                     getView().hideLoading();
-                    getView().onSignInCallback(false, "User Not Exist");
+                    getView().onSignInCallback(false, null);
                 }
             }
 
