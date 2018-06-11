@@ -8,6 +8,7 @@ import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.neway.feedme.R;
+import com.neway.feedme.activities.foodDetails.FoodDetailsActivity;
 import com.neway.feedme.bases.BaseActivity;
 import com.neway.feedme.model.Category;
 import com.neway.feedme.model.Food;
@@ -78,7 +79,11 @@ public class FoodListActivity extends BaseActivity implements FoodListContract.V
     }
 
     @Override
-    public void onItemClicked(Food model) {
+    public void onItemClicked(Food model, String foodID) {
+
+        FoodDetailsActivity.SELECTED_FOOD = model;
+        FoodDetailsActivity.FOOD_ID = foodID;
+        Navegator.navigateToActivity(this, FoodDetailsActivity.class);
         Toast.makeText(this, model.getName(), Toast.LENGTH_SHORT).show();
     }
 }

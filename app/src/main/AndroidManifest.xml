@@ -20,6 +20,8 @@
         </activity>
         <activity android:name=".activities.home.HomeActivity" />
         <activity android:name=".activities.foodlist.FoodListActivity" />
+        <activity android:name=".activities.foodDetails.FoodDetailsActivity" />
+        <activity android:name=".activities.cart.CartActivity" />
 
     </application>
 

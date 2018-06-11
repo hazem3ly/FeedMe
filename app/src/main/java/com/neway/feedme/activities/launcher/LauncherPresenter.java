@@ -59,9 +59,7 @@ public class LauncherPresenter extends BasePresenter<LauncherContract.View> impl
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (!dataSnapshot.child(phone).exists()) {
-                    User user = new User();
-                    user.setName(name);
-                    user.setPassword(password);
+                    User user = new User(name,password,phone);
                     tableUser.child(phone).setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
@@ -82,7 +80,8 @@ public class LauncherPresenter extends BasePresenter<LauncherContract.View> impl
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
+                getView().hideLoading();
+                getView().onSignUpCallback(false, "Sign up cancelled");
             }
         });
     }
@@ -108,7 +107,8 @@ public class LauncherPresenter extends BasePresenter<LauncherContract.View> impl
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
+                getView().hideLoading();
+                getView().onSignInCallback(false, null);
             }
         });
     }

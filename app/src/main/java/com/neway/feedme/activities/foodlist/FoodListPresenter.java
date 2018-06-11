@@ -21,6 +21,7 @@ public class FoodListPresenter extends BasePresenter<FoodListContract.View> impl
 
     FirebaseDatabase database;
     DatabaseReference food;
+    FirebaseRecyclerAdapter<Food, FoodsViewHolder> adapter = null;
 
     public FoodListPresenter() {
         database = FirebaseDatabase.getInstance();
@@ -30,24 +31,23 @@ public class FoodListPresenter extends BasePresenter<FoodListContract.View> impl
     @Override
     public void loadFoodsList(String menuKey) {
         getView().showLoading();
-        FirebaseRecyclerAdapter<Food, FoodsViewHolder> adapter =
-                new FirebaseRecyclerAdapter<Food, FoodsViewHolder>(
-                        Food.class, R.layout.food_item, FoodsViewHolder.class, food.orderByChild("MenuId").equalTo(menuKey)) {
+        adapter = new FirebaseRecyclerAdapter<Food, FoodsViewHolder>(
+                Food.class, R.layout.food_item, FoodsViewHolder.class, food.orderByChild("MenuId").equalTo(menuKey)) {
+            @Override
+            protected void populateViewHolder(FoodsViewHolder viewHolder, Food model, int position) {
+                viewHolder.food_text.setText(model.getName());
+                Picasso.get().load(model.getImage()).into(viewHolder.food_image);
+
+                final Food s = model;
+                viewHolder.setItemClickListener(new OnItemClickListener() {
                     @Override
-                    protected void populateViewHolder(FoodsViewHolder viewHolder, Food model, int position) {
-                        viewHolder.food_text.setText(model.getName());
-                        Picasso.get().load(model.getImage()).into(viewHolder.food_image);
-
-                        final Food s = model;
-                        viewHolder.setItemClickListener(new OnItemClickListener() {
-                            @Override
-                            public void onClick(View view, int position, boolean isLongClick) {
-                                getView().onItemClicked(s);
-                            }
-                        });
-
+                    public void onClick(View view, int position, boolean isLongClick) {
+                        getView().onItemClicked(s, adapter.getRef(position).getKey());
                     }
-                };
+                });
+
+            }
+        };
 
         getView().hideLoading();
         getView().onDataLoaded(adapter);

@@ -1,8 +1,10 @@
 package com.neway.feedme.activities.home;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -16,6 +18,7 @@ import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.neway.feedme.R;
+import com.neway.feedme.activities.cart.CartActivity;
 import com.neway.feedme.activities.foodlist.FoodListActivity;
 import com.neway.feedme.bases.BaseActivity;
 import com.neway.feedme.model.App;
@@ -32,6 +35,7 @@ public class HomeActivity extends BaseActivity implements HomeContract.View, Nav
 
     RecyclerView menu_recycler;
     LinearLayoutManager layoutManager;
+    FloatingActionButton fab;
 
     @Override
     protected int getContentResource() {
@@ -45,6 +49,13 @@ public class HomeActivity extends BaseActivity implements HomeContract.View, Nav
 
         layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
 
+        fab = findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(HomeActivity.this, CartActivity.class));
+            }
+        });
         menu_recycler = findViewById(R.id.recycler_menu);
         menu_recycler.setLayoutManager(layoutManager);
 
