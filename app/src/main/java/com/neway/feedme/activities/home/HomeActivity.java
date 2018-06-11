@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -20,6 +21,8 @@ import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.neway.feedme.R;
 import com.neway.feedme.activities.cart.CartActivity;
 import com.neway.feedme.activities.foodlist.FoodListActivity;
+import com.neway.feedme.activities.launcher.LauncherActivity;
+import com.neway.feedme.activities.orderStatus.OrderStatusActivity;
 import com.neway.feedme.bases.BaseActivity;
 import com.neway.feedme.model.App;
 import com.neway.feedme.model.Category;
@@ -98,7 +101,27 @@ public class HomeActivity extends BaseActivity implements HomeContract.View, Nav
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        return false;
+
+        int id = item.getItemId();
+        switch (id) {
+            case R.id.nav_cart:
+                startActivity(new Intent(HomeActivity.this, CartActivity.class));
+                break;
+            case R.id.nav_log_out:
+                startActivity(new Intent(HomeActivity.this, LauncherActivity.class)
+                        .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP));
+                finish();
+                break;
+            case R.id.nav_menu:
+                break;
+            case R.id.nav_orders:
+                startActivity(new Intent(HomeActivity.this, OrderStatusActivity.class));
+                break;
+        }
+
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
     }
 
     @Override
@@ -109,8 +132,8 @@ public class HomeActivity extends BaseActivity implements HomeContract.View, Nav
     @Override
     public void onItemClicked(String menuKey, Category model) {
         Bundle data = new Bundle();
-        data.putString("KEY",menuKey);
-        Navegator.navigateToActivity(this, FoodListActivity.class,data );
+        data.putString("KEY", menuKey);
+        Navegator.navigateToActivity(this, FoodListActivity.class, data);
         Toast.makeText(this, model.getName(), Toast.LENGTH_SHORT).show();
     }
 }

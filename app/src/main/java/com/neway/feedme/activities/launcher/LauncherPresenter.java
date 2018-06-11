@@ -59,7 +59,7 @@ public class LauncherPresenter extends BasePresenter<LauncherContract.View> impl
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (!dataSnapshot.child(phone).exists()) {
-                    User user = new User(name,password,phone);
+                    User user = new User(name, password, phone);
                     tableUser.child(phone).setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
@@ -93,6 +93,7 @@ public class LauncherPresenter extends BasePresenter<LauncherContract.View> impl
                 if (dataSnapshot.child(phone).exists()) {
                     User user = dataSnapshot.child(phone).getValue(User.class);
                     if (user != null && user.getPassword().equals(password)) {
+                        user.setPhone(phone);
                         getView().onSignInCallback(true, user);
                         getView().hideLoading();
                     } else {
