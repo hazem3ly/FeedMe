@@ -1,6 +1,7 @@
 package com.neway.feedme.adapters;
 
 import android.support.v7.widget.RecyclerView;
+import android.view.ContextMenu;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -32,6 +33,8 @@ public class MenuViewHolder extends RecyclerView.ViewHolder implements View.OnCl
 
     @Override
     public void onClick(View v) {
-        itemClickListener.onClick(v, getAdapterPosition(), false);
+        if (itemClickListener != null)
+            itemClickListener.onClick(v, getAdapterPosition(), false);
     }
+
 }
