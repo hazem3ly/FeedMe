@@ -38,7 +38,7 @@ public class FoodListPresenter extends BasePresenter<FoodListContract.View> impl
     public void loadFoodsList(String menuKey) {
         getView().showLoading();
         adapter = new FirebaseRecyclerAdapter<Food, FoodsViewHolder>(
-                Food.class, R.layout.food_item, FoodsViewHolder.class, food.orderByChild("MenuId").equalTo(menuKey)) {
+                Food.class, R.layout.food_item, FoodsViewHolder.class, food.orderByChild("menuId").equalTo(menuKey)) {
             @Override
             protected void populateViewHolder(FoodsViewHolder viewHolder, Food model, int position) {
                 viewHolder.food_text.setText(model.getName());
@@ -63,7 +63,7 @@ public class FoodListPresenter extends BasePresenter<FoodListContract.View> impl
     public void searchFood(String searchString) {
         getView().showLoading();
         adapter = new FirebaseRecyclerAdapter<Food, FoodsViewHolder>(
-                Food.class, R.layout.food_item, FoodsViewHolder.class, food.orderByChild("Name").equalTo(searchString)) {
+                Food.class, R.layout.food_item, FoodsViewHolder.class, food.orderByChild("name").equalTo(searchString)) {
             @Override
             protected void populateViewHolder(FoodsViewHolder viewHolder, Food model, int position) {
                 viewHolder.food_text.setText(model.getName());
@@ -87,7 +87,7 @@ public class FoodListPresenter extends BasePresenter<FoodListContract.View> impl
     @Override
     public void loadSuggest(String menuKey) {
         final List<String> suggestList = new ArrayList<>();
-        food.orderByChild("MenuId").equalTo(menuKey).addValueEventListener(new ValueEventListener() {
+        food.orderByChild("menuId").equalTo(menuKey).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
