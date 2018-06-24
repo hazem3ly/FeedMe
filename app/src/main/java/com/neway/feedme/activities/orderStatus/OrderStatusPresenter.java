@@ -32,15 +32,14 @@ public class OrderStatusPresenter extends BasePresenter<OrderStatusContract.View
     }
 
     @Override
-    public void getOrders() {
+    public void getOrders(String phone) {
         getView().showLoading();
-        User user = App.getCurrentUser();
 
         adapter = new FirebaseRecyclerAdapter<Request, OrderViewHolder>(
                 Request.class,
                 R.layout.order_layout_item,
                 OrderViewHolder.class,
-                requests.orderByChild("phone").equalTo(user.getPhone())) {
+                requests.orderByChild("phone").equalTo(phone)) {
             @Override
             protected void populateViewHolder(OrderViewHolder viewHolder, Request model, int position) {
                 viewHolder.txtOrderId.setText(adapter.getRef(position).getKey());

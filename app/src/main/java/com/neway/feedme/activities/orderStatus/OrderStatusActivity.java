@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.neway.feedme.R;
 import com.neway.feedme.bases.BaseActivity;
+import com.neway.feedme.model.App;
 import com.neway.feedme.model.Order;
 
 import java.util.List;
@@ -40,7 +41,12 @@ public class OrderStatusActivity extends BaseActivity implements OrderStatusCont
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
-        mPresenter.getOrders();
+        if (getIntent() == null)
+            mPresenter.getOrders(App.getCurrentUser().getPhone());
+        else if (getIntent().hasExtra("userPhone")) {
+            String phone = getIntent().getStringExtra("userPhone");
+            mPresenter.getOrders(phone);
+        }
     }
 
 

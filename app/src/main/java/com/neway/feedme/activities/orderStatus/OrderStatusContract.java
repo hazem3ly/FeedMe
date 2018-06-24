@@ -16,7 +16,7 @@ public class OrderStatusContract {
 
     // User actions. Presenter will implement
     interface Presenter extends BaseMvpPresenter<OrderStatusContract.View> {
-        void getOrders();
+        void getOrders(String phone);
     }
 
     // Action callbacks. Activity/Fragment will implement

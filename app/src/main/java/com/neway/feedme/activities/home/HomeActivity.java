@@ -27,6 +27,7 @@ import com.neway.feedme.bases.BaseActivity;
 import com.neway.feedme.model.App;
 import com.neway.feedme.model.Category;
 import com.neway.feedme.model.Navegator;
+import com.neway.feedme.services.StatusChangeListener;
 
 /**
  * Created by Hazem Ali
@@ -47,6 +48,9 @@ public class HomeActivity extends BaseActivity implements HomeContract.View, Nav
 
     @Override
     protected void init(@Nullable Bundle state) {
+
+        startService(new Intent(this, StatusChangeListener.class));
+
         mPresenter = new HomePresenter();
         mPresenter.attach(this);
 

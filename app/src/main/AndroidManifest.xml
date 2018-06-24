@@ -3,8 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.neway.feedme">
 
+    <uses-sdk tools:overrideLibrary="com.mancj.materialsearchbar" />
+
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-sdk tools:overrideLibrary="com.mancj.materialsearchbar"/>
 
     <application
         android:name=".model.App"
@@ -27,6 +28,10 @@
         <activity android:name=".activities.cart.CartActivity" />
         <activity android:name=".activities.orderStatus.OrderStatusActivity" />
 
+        <service
+            android:name=".services.StatusChangeListener"
+            android:enabled="true"
+            android:exported="true"></service>
     </application>
 
 </manifest>
